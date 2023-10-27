@@ -7,35 +7,34 @@ input.map((item, index) => {
 });
 count = 0;
 result = 0;
-let word4 = input[0].toString().split("");
-let word = [...new Set(word4)];
+const word = input[0].toString().split("");
 input.shift();
 for (i = 0; i < input.length; i++) {
-  let word3 = input[i].toString().split("");
-  let word2 = [...new Set(word3)];
-  for (j = 0; j < word2.length; j++) {
-    for (k = 0; k < word.length; k++) {
-      if (word2[j] === word[k]) {
-        count++;
+  let word2 = input[i].toString().split("");
+  let word3 = [...word];
+  if (word2.length > word3.length) {
+    for (j = 0; j < word3.length; j++) {
+      for (k = 0; k < word2.length; k++) {
+        if (word3[j] === word2[k]) {
+          word2.splice(k, 1);
+          k--;
+          break;
+        }
       }
     }
-  }
-  if (word2.length > 1) {
-    if (word2.length > word.length) {
-      count >= word2.length - 1 ? result++ : result;
-    } else {
-      count >= word.length - 1 ? result++ : result;
-    }
+    word2.length <= 1 ? result++ : result;
   } else {
-    if (word2.length > word.length) {
-      count >= word2.length - 1 ? result++ : result;
-    } else {
-      count >= word.length - 1 ? result++ : result;
+    for (j = 0; j < word2.length; j++) {
+      for (k = 0; k < word3.length; k++) {
+        if (word2[j] === word3[k]) {
+          word3.splice(k, 1);
+          k--;
+          break;
+        }
+      }
     }
+    word3.length <= 1 ? result++ : result;
   }
-  console.log(word);
-  console.log(word2.length, word.length);
-  console.log(result);
   count = 0;
 }
 console.log(result);
