@@ -1,3 +1,4 @@
+////////////////////// 풀지못햇음 보류 ///////////////////////
 let fs = require("fs");
 let filepath = process.platform === "linux" ? "/dev/stdin" : "input.txt";
 let input = fs.readFileSync(filepath).toString().split("\n");
