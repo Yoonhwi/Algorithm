@@ -14,7 +14,7 @@
   const closeCb = () => {
     result = Number(input[0]);
     input.shift();
-    input.map((v, i) => {
+    input.map((v) => {
       let word = v.split("");
       operate(word);
     });

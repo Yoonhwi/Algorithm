@@ -9,6 +9,7 @@
   let sum = 0;
   let credit = 0;
   let creditSum = 0;
+
   const GRADE = {
     "A+": 4.5,
     A0: 4.0,
