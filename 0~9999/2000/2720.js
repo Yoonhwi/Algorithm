@@ -1,16 +1,32 @@
-let fs = require("fs");
-let filepath = process.platform === "linux" ? "/dev/stdin" : "input.txt";
-let input = fs.readFileSync(filepath).toString().split("\n");
+{
+  const readline = require("readline");
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 
-const result = (change) => {
-  let count = [0, 0, 0, 0];
+  let input = [];
+  let result = [];
   let money = [25, 10, 5, 1];
-  for (let i = 0; i < money.length; i++) {
-    count[i] += Math.floor(change / money[i]);
-    change %= money[i];
-  }
-  return count.join(" ");
-};
-for (let i = 1; i < input.length; i++) {
-  console.log(result(input[i]));
+  const inputCb = (line) => {
+    input.push(Number(line));
+  };
+
+  const closeCb = () => {
+    input.shift();
+    input.map((e) => {
+      change(e);
+    });
+  };
+
+  const change = (num) => {
+    money.map((e, i) => {
+      result.push(Math.floor(num / e));
+      num = num % e;
+    });
+    console.log(result.join(" "));
+    result = [];
+  };
+
+  rl.on("line", inputCb).on("close", closeCb);
 }
