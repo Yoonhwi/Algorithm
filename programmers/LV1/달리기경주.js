@@ -7,7 +7,7 @@ function solution(players, callings) {
   for (i = 0; i < players.length; i++) {
     object[players[i]] = i;
   }
-  callings.map((v) => {
+  callings.forEach((v) => {
     const index = object[v];
     const temp = players[index];
     players[index] = players[index - 1];

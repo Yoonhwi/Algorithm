@@ -9,7 +9,7 @@ function solution(name, yearning, photo) {
     object[name[i]] = yearning[i];
   }
 
-  PHOTO.forEach((v) => {
+  photo.forEach((v) => {
     let sum = 0;
     v.forEach((v2) => {
       !!object[v2] ? (sum += object[v2]) : (sum += 0);
