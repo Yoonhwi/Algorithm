@@ -33,7 +33,6 @@ function solution(today, terms, privacies) {
       operate(todayY, todayM, todayD) + termsObject[privacyAlpha] * 28;
     operToday >= operprivacyDay ? answer.push(i + 1) : "";
   });
-  console.log(answer);
   return answer;
 }
 
