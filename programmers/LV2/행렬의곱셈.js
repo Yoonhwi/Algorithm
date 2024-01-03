@@ -8,17 +8,6 @@ const testArr2 = [
   [3, 3],
 ];
 
-const test2Arr1 = [
-  [2, 3, 2],
-  [4, 2, 4],
-  [3, 1, 4],
-];
-
-const test2Arr2 = [
-  [5, 4, 3],
-  [2, 4, 1],
-  [3, 1, 1],
-];
 function solution(arr1, arr2) {
   let solution = [];
 
