@@ -33,11 +33,7 @@
     // }
     function dfs(k) {
       if (k === m) {
-        const arr = [];
-        for (let i = 0; i < m; i++) {
-          arr.push(seq[i]);
-        }
-        return (result += `${arr.join(" ")}\n`);
+        return (result += `${seq.join(" ")}\n`);
       }
       for (let i = 1; i <= n; i++) {
         if (!visited[i]) {
