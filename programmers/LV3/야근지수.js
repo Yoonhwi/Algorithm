@@ -21,7 +21,7 @@ function solution(n, works) {
     }
     n--;
   }
-  console.log(dir);
+
   for (const [key, value] of Object.entries(dir)) {
     if (value === 0) continue;
     result += key * key * value;
