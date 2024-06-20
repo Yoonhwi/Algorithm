@@ -33,4 +33,5 @@ function twoSum2(nums, target) {
   }
 }
 
-console.log(twoSum2([2, 7, 11, 15], 9));
+// 시간복잡도 : O(n)
+// runtime : 56ms
