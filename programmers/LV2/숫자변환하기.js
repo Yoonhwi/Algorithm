@@ -28,4 +28,32 @@ function solution(x, y, n) {
 }
 //DFS 실패 시간초과
 
+function solution(x, y, n) {
+  const que = [[y, 0]];
+
+  while (que.length) {
+    let [num, cnt] = que.shift();
+    if (num === x) return cnt;
+    if (num > x || num % 3 === 0) que.push([num / 3, cnt + 1]);
+    if (num > x || num % 2 === 0) que.push([num / 2, cnt + 1]);
+    if (num - n >= x) que.push([num - n, cnt + 1]);
+  }
+
+  return -1;
+}
+//BFS 실패 시간초과
+
+function solution(x, y, n) {
+  const dp = new Array(y + 1).fill(Infinity);
+  dp[x] = 0;
+
+  for (let i = x; i <= y; i++) {
+    dp[i + n] = Math.min(dp[i + n], dp[i] + 1);
+    dp[i * 2] = Math.min(dp[i * 2], dp[i] + 1);
+    dp[i * 3] = Math.min(dp[i * 3], dp[i] + 1);
+  }
+
+  return dp[y] !== Infinity ? dp[y] : -1;
+}
+
 console.log(solution(10, 40, 5)); //2
