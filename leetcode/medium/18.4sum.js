@@ -20,6 +20,24 @@
 //     });
 
 //     if (sum === target) {
+//       result.push(currentArr);
+//     }
+//     return;
+//   }
+
+//   for (let i = 0; i < nums.length; i++) {
+//     const newArray = [...currentArr, nums[i]];
+//     createArray(nums, newArray, target, result);
+//   }
+// }
+
+// function createArray(nums, currentArr, target, result) {
+//   if (currentArr.length === 4) {
+//     const sum = currentArr.reduce((prev, curr) => {
+//       return prev + curr;
+//     });
+
+//     if (sum === target) {
 //       const sortedArr = currentArr.sort((a, b) => a - b);
 //       if (!isArrayInResult(result, sortedArr)) {
 //         result.push(sortedArr);
@@ -49,9 +67,13 @@ var fourSum = function (nums, target) {
   nums = nums.sort((a, b) => a - b);
 
   for (let i = 0; i < length - 3; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
     for (let j = i + 1; j < length - 2; j++) {
+      if (j > i + 1 && nums[j] === nums[j - 1]) continue;
       for (let k = j + 1; k < length - 1; k++) {
+        if (k > j + 1 && nums[k] === nums[k - 1]) continue;
         for (let l = k + 1; l < length; l++) {
+          if (l > k + 1 && nums[l] === nums[l - 1]) continue;
           const sum = nums[i] + nums[j] + nums[k] + nums[l];
           if (target === sum) {
             result.push([nums[i], nums[j], nums[k], nums[l]]);
