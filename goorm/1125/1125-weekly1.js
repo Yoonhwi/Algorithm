@@ -13,8 +13,8 @@ rl.on("line", (line) => {
 
 rl.on("close", () => {
   const [w, r] = input.split(" ").map(Number);
-  const result = w * (1 + Math.floor(r / 30));
-  console.log(result);
+  const result = w * (1 + r / 30);
+  console.log(Math.floor(result));
   return;
 });
 

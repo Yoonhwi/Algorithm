@@ -12,7 +12,8 @@ rl.on("line", (line) => {
 });
 
 rl.on("close", () => {
-  if (!input % 2) {
+  const output = [];
+  if (input % 2 === 0) {
     console.log(-1);
     return;
   }
@@ -21,15 +22,12 @@ rl.on("close", () => {
   let num = input;
 
   while (num <= input || !up) {
-    console.log(" ".repeat((input - num) / 2) + "*".repeat(num));
+    output.push(" ".repeat((input - num) / 2) + "*".repeat(num));
     if (num === 1) {
       up = true;
     }
-
-    if (up) {
-      num += 2;
-    } else {
-      num -= 2;
-    }
+    up ? (num += 2) : (num -= 2);
   }
+
+  console.log(output.join("\n"));
 });
