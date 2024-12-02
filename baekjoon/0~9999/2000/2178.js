@@ -1,44 +1,52 @@
-////////////////////// 풀지못햇음 보류 ///////////////////////
-let fs = require("fs");
-let filepath = process.platform === "linux" ? "/dev/stdin" : "input.txt";
-let input = fs.readFileSync(filepath).toString().split("\n");
-input.forEach((item, index) => (input[index] = item.replace("\r", "")));
-let mirror;
-let mirrorArr = [];
-let result = 0;
-const number = input[0].toString().split(" ");
-const column = number[0]; // 행
-const row = number[1]; //열
-input.shift();
-for (k = 0; k < column; k++) {
-  let target = input[k].toString().split("");
-  mirrorArr[k] = [];
-  for (x = 0; x < row; x++) {
-    mirrorArr[k][x] = target[x];
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+let input = [];
+
+rl.on("line", (line) => {
+  input.push(line);
+});
+
+rl.on("close", () => {
+  const [row, col] = input.shift().split(" ").map(Number);
+  input = input.map((v) => {
+    return v.split("").map(Number);
+  });
+
+  const disabled = new Set();
+  let result = Infinity;
+
+  const queue = [[0, 0, 0]];
+  while (queue.length) {
+    const [i, j, count] = queue.shift();
+
+    if (
+      i < 0 ||
+      j < 0 ||
+      i >= row ||
+      j >= col ||
+      disabled.has(`${i},${j}`) ||
+      input[i][j] !== 1
+    ) {
+      continue;
+    }
+
+    disabled.add(`${i},${j}`);
+
+    if (i === row - 1 && j === col - 1) {
+      result = Math.min(result, count + 1);
+    }
+
+    queue.push([i + 1, j, count + 1]);
+    queue.push([i, j + 1, count + 1]);
+    queue.push([i - 1, j, count + 1]);
+    queue.push([i, j - 1, count + 1]);
   }
-}
-let i = 0;
-let j = 0;
-while (i !== column - 1 || j !== row - 1) {
-  if (mirrorArr[i][j] === "1") {
-    console.log("1");
-    result++;
-    if (mirrorArr[i][j + 1] === "1") {
-      j++;
-      result++;
-    }
-    if (mirrorArr[i + 1][j] === "1") {
-      i++;
-      result++;
-    }
-    if (mirrorArr[i][j + 1] !== "1" && mirrorArr[i + 1][j] !== "1") {
-      if (mirrorArr[i - 1][j] === "1") {
-        i--;
-        result++;
-      }
-    }
-    if (mirrorArr[i][j + 1] === "1" && mirrorArr[i + 1][j] === "1") {
-      console.log("i:", i, "j:", j);
-    }
-  }
-}
+
+  console.log(result);
+  return;
+});
