@@ -13,60 +13,53 @@ rl.on("line", (line) => {
 
 rl.on("close", () => {
   const [col, row] = input.shift();
-  const data = [];
+  const queue = [];
+
+  let max = -Infinity;
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < col; j++) {
       if (input[i][j] === 1) {
-        data.push([i, j]);
+        queue.push([i, j, 0]);
       }
     }
   }
 
-  for (let i = 0; i < data.length; i++) {
-    const [a, b] = data[i];
-    const set = new Set();
-
-    const queue = [[a, b, 0]];
-    while (queue.length) {
-      const [x, y, c] = queue.shift();
-      if (
-        x < 0 ||
-        y < 0 ||
-        x >= row ||
-        y >= col ||
-        input[x][y] === -1 ||
-        set.has(`${x},${y}`)
-      ) {
-        continue;
-      }
-
-      let min = c + 1;
-
-      if (input[x][y] > 1 && input[x][y] <= min) {
-        continue;
-      }
-
-      input[x][y] = min;
-      set.add(`${x},${y}`);
-
-      queue.push([x + 1, y, min]);
-      queue.push([x, y + 1, min]);
-      queue.push([x - 1, y, min]);
-      queue.push([x, y - 1, min]);
-    }
+  if (!queue.length) {
+    console.log(-1);
+    return;
   }
 
-  let result = -Infinity;
+  const directions = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+  let count = 0;
+
+  while (queue.length > count) {
+    const [a, b, c] = queue[count++];
+
+    for (const [dx, dy] of directions) {
+      const x = dx + a;
+      const y = dy + b;
+
+      if (x >= 0 && y >= 0 && x < row && y < col && input[x][y] === 0) {
+        input[x][y] = 1;
+        queue.push([x, y, c + 1]);
+        max = Math.max(max, c + 1);
+      }
+    }
+  }
 
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < col; j++) {
       if (input[i][j] === 0) {
         console.log(-1);
         return;
-      } else {
-        result = Math.max(result, input[i][j]);
       }
     }
   }
-  console.log(result - 1);
+
+  console.log(max === -Infinity ? 0 : max);
 });
