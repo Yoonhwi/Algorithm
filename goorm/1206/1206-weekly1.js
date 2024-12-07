@@ -29,6 +29,7 @@ rl.on("close", () => {
   });
 
   const temp = Array.from({ length: N });
+
   arr.forEach((v, i) => {
     const [x, y, z] = v;
     temp[z] = i;
